@@ -6,11 +6,11 @@ name: CI
 # events but only for the master branch
 on:
   create:
-    tags:
-      - v*
-#   push:
-#     branches: 
-#       - master
+#     tags:
+#       - v*
+  push:
+    branches: 
+      - master
 #     tags: 
 #       - v*
 #   pull_request:
