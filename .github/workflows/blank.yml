@@ -29,15 +29,21 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@master
 
+    - name: Cache file
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-file
+      with:
+        path: ~/large_file.txt # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
     # Runs a single command using the runners shell
     - name: Run a one-line script
-      run: echo ${{secrets.TEST}}
-      
-    - name: LS
-      run: ls -ls
-
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        ls -la
+        echo ${{secrets.TEST}} > large_file.txt
+    
