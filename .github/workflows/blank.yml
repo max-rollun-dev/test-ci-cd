@@ -35,15 +35,14 @@ jobs:
         cache-name: cache-file
       with:
         path: ~/large_file.txt # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: ${{ runner.os }}-deps-${{ env.cache-name }}-
-        # -${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-deps-${{ env.cache-name }}-${{ hashFiles('./large_file.txt') }}
         restore-keys: |
           ${{ runner.os }}-deps-${{ env.cache-name }}-
     - name: ls
       run: ls -la
 
     - name: Run a one-line script
-      run: echo ${{secrets.TEST}} > large_file.txt
+      run: echo '1234' > large_file.txt
     - name: ls
       run: ls -la
     
