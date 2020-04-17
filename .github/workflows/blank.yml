@@ -38,7 +38,7 @@ jobs:
         key: ${{ runner.os }}-deps-${{ env.cache-name }}-1234
         #${{ hashFiles('./large_file.txt') }}
         restore-keys: |
-          ${{ runner.os }}-deps-${{ env.cache-name }}-
+          ${{ runner.os }}-deps-${{ env.cache-name }}-1234
     - name: ls
       run: ls -la
 
