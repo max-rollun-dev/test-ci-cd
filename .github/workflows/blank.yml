@@ -41,11 +41,14 @@ jobs:
           ${{ runner.os }}-deps-${{ env.cache-name }}-1234
           
     - name: Test for cache 
-      if: steps.cache-file.outputs.cache-hit != 'true'
+      if: steps.cache-file.outputs.cache-hit == 'true'
       run: echo "Cache"
            
     - name: ls
-      run: ls -la
+      run: |
+        ls -la
+        pwd
+        ls -la /home/runner
     
     - name: Run a one-line script
       run: echo '1234' > large_file.txt
