@@ -45,6 +45,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Run a one-line script
-      run: echo ${{secrets.TEST}} > large_file.txt
-        
+      run: echo ${{secrets.TEST}} > large_file.tx
+    - name: ls
+      run: ls -la
     
