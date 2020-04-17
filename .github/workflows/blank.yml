@@ -39,9 +39,14 @@ jobs:
         #${{ hashFiles('./large_file.txt') }}
         restore-keys: |
           ${{ runner.os }}-deps-${{ env.cache-name }}-1234
+          
+    - name: Test for cache 
+      if: steps.cache-file.outputs.cache-hit != 'true'
+      run: echo "Cache"
+           
     - name: ls
       run: ls -la
-
+    
     - name: Run a one-line script
       run: echo '1234' > large_file.txt
     - name: ls
