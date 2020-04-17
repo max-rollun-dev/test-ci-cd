@@ -40,10 +40,11 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+    - name: ls
+      run: ls -la
 
     # Runs a single command using the runners shell
     - name: Run a one-line script
-      run: |
-        ls -la
-        echo ${{secrets.TEST}} > large_file.txt
+      run: echo ${{secrets.TEST}} > large_file.txt
+        
     
