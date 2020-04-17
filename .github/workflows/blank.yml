@@ -36,7 +36,7 @@ jobs:
         path: large_file.txt # npm cache files are stored in `~/.npm` on Linux/macOS
         key: ${{ runner.os }}-deps-${{ env.cache-name }}-${{ hashFiles('**/large_file.txt') }}
         restore-keys: |
-          ${{ runner.os }}-deps-${{ env.cache-name }}-
+          ${{ runner.os }}-deps-${{ env.cache-name }}-${{ hashFiles('**/large_file.txt') }}
           
     - name: Test for cache 
       if: steps.cache-file.outputs.cache-hit == 'true'
