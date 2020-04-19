@@ -35,14 +35,10 @@ jobs:
         key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/test') }}
         restore-keys: |
           ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/test') }}
-          
-    - name: Cache hit
-      run: |
-        ${{ steps.cache-file.outputs.cache-hit }}      
-    
+        
     - name: Test for cache 
-      if: steps.cache-file.outputs.cache-hit == 'true'
-      run: echo "Cache"
+      if: steps.cache-file.outputs.cache-hit != 'true'
+      run: echo "Cache didnt hit"
            
     - name: ls
       run: |
