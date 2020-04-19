@@ -28,18 +28,20 @@ jobs:
 
     - name: Cache file
       uses: actions/cache@master
-      env:
-        cache-name: cache-file
+      id:
+        cache-file
       with:
         path: large_file.txt # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/test') }}
+        key: ${{ runner.os }}-cache-file-${{ hashFiles('**/test') }}
         restore-keys: |
-          ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/test') }}
+          ${{ runner.os }}-cache-file-${{ hashFiles('**/test') }}
         
-    - name: Test for cache 
+    - name: Test for cache (didnt hit)
       if: steps.cache-file.outputs.cache-hit != 'true'
       run: echo "Cache didnt hit"
-           
+    - name: Test for cache (hit)
+      if: steps.cache-file.outputs.cache-hit == 'true'
+      run: echo "Cache hit"
     - name: ls
       run: |
         ls -la
