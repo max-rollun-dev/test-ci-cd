@@ -3,17 +3,9 @@ name: CI
 
 # events but only for the master branch
 on:
-  create:
-#     tags:
-#       - v*
   push:
-    branches: 
-      - master
-#     tags: 
-#       - v*
-#   pull_request:
-#     branches:
-#       - master
+     tags:
+       - '*'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,32 +16,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@master
-
-    - name: Cache file
-      uses: actions/cache@master
-      id:
-        cache-file
+    - uses: actions/checkout@v2
       with:
-        path: large_file.txt # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: ${{ runner.os }}-cache-file-${{ hashFiles('**/test') }}
-        restore-keys: |
-          ${{ runner.os }}-cache-file-${{ hashFiles('**/test') }}
-        
-    - name: Test for cache (didnt hit)
-      if: steps.cache-file.outputs.cache-hit != 'true'
-      run: echo "Cache didnt hit"
-    - name: Test for cache (hit)
-      if: steps.cache-file.outputs.cache-hit == 'true'
-      run: echo "Cache hit"
+        ref: git describe --tags `git rev-list --tags --max-count=1`
     - name: ls
       run: |
         ls -la
-        pwd
-        ls -la /home/runner
-    
-    - name: Run a one-line script
-      run: echo 'test_content' > large_file.txt
-    - name: ls
-      run: ls -la
+        git describe --tags `git rev-list --tags --max-count=1`
     
